@@ -1,0 +1,50 @@
+create table customer(
+    cnum int primary key,
+    cname varchar(50) not null,
+    city varchar(50) not null,
+    rating int not null,
+    snum int not null
+);
+
+insert into customer values
+(2001, 'Hoffman', 'London', 100, 1001),
+(2002, 'Giovanni', 'Rome', 200, 1003),
+(2003, 'Liu', 'San Jose', 200, 1002),
+(2004, 'Grass', 'Berlin', 300, 1002),
+(2006, 'Clemens', 'London', 100, 1001),
+(2008, 'Cisneros', 'San Jose', 300, 1007),
+(2007, 'Pereira', 'Rome', 100, 1004);
+
+1.
+select * from customer where rating = 100;
+
+2.
+select * from customer where city=null;
+
+3.
+select * from customer where city='San Jose' and rating > 200;
+
+4.
+select * from customer order by rating desc;
+
+5.
+select count(*) from customer where rating > (select avg(rating) from customer
+where city='San Jose');
+
+6.
+select cname from customer city in ('London', 'Rome');
+
+7.
+select * from customer where rating in (
+(select max(rating) from customer),
+(select min(rating) from customer)
+);
+
+8.
+select cname from customer where cname like 'C%';
+
+9.
+delete from customer where rating < 200;
+
+10.
+update customer set city='London' where upper(cname)='CISNEROS';

@@ -1,0 +1,61 @@
+create table employee(
+    empid       VARCHAR(50) primary key,
+    empname     VARCHAR(100) not null,
+    doj         DATE not null,
+    dept        VARCHAR(50) not null,
+    dob         DATE not null,
+    salary      INT NOT NULL,
+    location    VARCHAR(100) not null,
+
+    CHECK (empid LIKE 'EM%'),
+    CHECK (dept IN ('HR', 'MARKETING', 'ANALYTICS', 'SALES', 'ACCOUNTS'))
+
+);
+
+
+INSERT INTO employee (empid, empname, doj, dept, dob, salary, location) VALUES
+('EM001', 'RAHUL SHARMA', '2015-02-15', 'HR', '1980-05-10', 50000, 'NEW YORK'),
+('EM002', 'DEBAYAN SUTRAHDAR', '2014-11-22', 'MARKETING', '1975-08-20', 60000, 'LOS ANGELES'),
+('EM003', 'PIYUSH ROY', '2016-06-30', 'ANALYTICS', '1970-03-12', 70000, 'CHICAGO'),
+('EM004', 'PIYUSH SHARMA', '2017-08-19', 'SALES', '1985-02-14', 80000, 'MUMBAI'),
+('EM005', 'ROHAN PAUL', '2018-09-05', 'ACCOUNTS', '1992-07-15', 40000, 'DALLAS'),
+('EM006', 'LIVVY DUNN', '2019-04-03', 'SALES', '1992-03-05', 50000, 'MUMBAI'),
+('EM007', 'BABY GRONK', '2011-04-03', 'SALES', '1993-03-05', 54000, 'KOLKATA');
+
+
+1.
+select * from employee;
+
+2.
+select * from employee where dept='HR' or dept='SALES';
+
+3.
+select * from employee where YEAR(doj) = 2015;
+
+4.
+select empname from employee where YEAR(dob) < 1980;
+
+5.
+update employee set dept='ACCOUNTS' where empname='PIYUSH SHARMA';
+
+6.
+select empname from employee where salary = (select max(salary) from employee) or salary = (select min(salary) from employee);
+
+select empname from employee where salary in (
+(SELECT MAX(salary) from employee),
+(SELECT MIN(salary) from employee)
+);
+
+7.
+select * from employee where location = 'KOLKATA';
+
+8.
+update employee set salary=salary*1.1 where dept='HR';
+
+9.
+select dept, empname from employee where dept='SALES' order by salary desc limit 1;
+
+10.
+delete from employee where empid=(select empid from employee where dept='ACCOUNTS' order by salary desc limit 1);
+
+

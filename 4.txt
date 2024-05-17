@@ -1,0 +1,62 @@
+create table employee(
+    empid       VARCHAR(50) primary key,
+    empname     VARCHAR(100) not null,
+    doj         DATE not null,
+    department        VARCHAR(50) not null,
+    dob         DATE not null,
+    salary      INT NOT NULL DEFAULT 15000,
+    location    VARCHAR(100) not null,
+
+    CHECK (empid LIKE 'EM%'),
+    CHECK (department IN ('HR', 'MARKETING', 'ANALYTICS', 'SALES', 'ACCOUNTS')),
+    CHECK (dob < doj)
+);
+
+
+1.
+select * from employee;
+
+2.
+select * from employee where department in ('HR', 'SALES');
+
+3.
+select empname from employee where department != 'ANALYTICS';
+
+
+4.
+select empname, department from employee where empname like 'R%E';
+
+5.
+select * from employee where year(doj) = 2015;
+
+6.
+select * from employee where dayofweek(doj) = 2;
+
+7.
+select * from employee where empid in ('EM101', 'EM220', 'EM250', 'EM300');
+
+8.
+select * from employee where year(dob) < 1980;
+
+9.
+update employee set salary = salary * 1.2 where department='ANALYTICS';
+
+10.
+update employee set department = 'ACCOUNTS' where empname='PIYUSH SHARMA';
+
+11.
+delete from employee where empid in ('EM141', 'EM32', 'EM29');
+
+12.
+select max(salary), min(salary) from employee;
+
+
+13.
+select doj from employee order by dob desc limit 1;
+
+14.
+select count(*) from employee where department='MARKETING';
+
+15.
+update salary set salary=salary*1.15 where doj = (select min(doj) from employee);
+
